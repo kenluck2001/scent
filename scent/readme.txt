@@ -1,0 +1,108 @@
+
+
+The library in use are Slim, angular.js, jquery, dataTables.
+
+This project was done in less than 3 days and as such is hackish in nature. For instance, style and presentation are mixed in some context.
+The concept can be seen in the demonstration.
+
+
+This survey app was built on Ubuntu and tested on Firefox browser. However, I have not used any platform-specific routine and as such it should work for every OS.
+
+Requirements
+-------------
+
+Javascript
+
+    jquery.js (https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/
+    
+    bootstrap.min.js (http://getbootstrap.com/)
+
+
+PHP
+    slim 2 (http://www.slimframework.com/)
+
+
+File structure
+---------------
+/scent
+    /api 
+        config.php  
+        /libs  
+        /v1
+            authentication.php  
+            composer.lock  
+            dbHandler.php  
+            passwordHash.php  
+            vendor
+            composer.json       
+            dbConnect.php  
+            index.php      
+            survey.php
+    /app 
+        app.js  
+        authCtrl.js  
+        data.js  
+        directives.js  
+        globals.js
+ 
+    css  
+    index.php  
+    js  
+    /partials 
+        admin.html  
+        login.html  
+        manager.html  
+        signup.html
+ 
+    proj.sql  
+    style
+
+
+Installation instructions
+-------------------------
+The package manager in use is composer for handling all the required dependency and modify the composer.json
+
+Add elements to your composer.json and run composer update as shown below. 
+
+{
+    "require": {
+        "illuminate/database": "*"
+    }
+}
+
+The ORM in use is Eloquent.
+
+
+
+Run the sql script in proj.sql to create the required table.
+
+Run the database server based on the configuration of your system. Remember to provide your database credentials in public directory and edit the index.php. An example is show below
+
+// Database information in config.php and survey.php
+$settings = array (
+		'driver' => 'mysql',
+		'host' => '127.0.0.1',
+		'port' => '3306',
+		'database' => 'survey',
+		'username' => 'root',
+		'password' => 'root',
+		'charset' => 'utf8',
+		'collation' => 'utf8_unicode_ci',
+		'prefix' => '' 
+);
+
+
+Remember to bootstrap the eloquent
+
+Conclusion
+-----------
+
+Slim is perfect for writing RESTful API. This is a major syntax difference between Slim 2 and Slim 3.
+
+As for code quality, there is minimal ajax calls in this logic. This project was using the concept of Google spreadsheet where we don't need to explicitly post the form. The form is posted automatically when the user is done editing. 
+
+The design is responsive and using clever data management. The user can see the same information across different device in real-time.
+
+We have a normal user and admin user. The normal user can rate perfume and add new perfume in the sheet. Modify the .htaccess file to ensure security as required.
+
+

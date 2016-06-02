@@ -1,0 +1,47 @@
+
+.picture
+{
+   width:150px;
+   height:100px;
+}
+
+
+
+body {
+	/**
+width: 960px;
+*/
+  padding-top: 70px;
+  padding-bottom: 40px;
+  	/**
+margin: 0 auto;
+*/
+  background-color: #eee;
+}
+
+
+
+.navbar-center
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: auto;
+    color: blue;
+}
+
+
+/**#listOfRooms  td{ height: 104px };*/
+
+
+.ui-widget-header {
+    background-color: #ededed;
+    color: #000000;
+    font-weight: bold;
+}
+
+
+select.dropdown{
+	width: 145px;
+}

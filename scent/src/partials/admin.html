@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Questionaire / Survey</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+	
+	
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/navbar.css" rel="stylesheet">
+         
+	<style>
+		body {
+		  padding-top: 0px;
+		}
+    </style>  
+    
+ 
+  </head>
+  <body>
+    <div class="container">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#/admin">Questionaire / Survey</a></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+              <li><a ng-click="logout();">Logout</a></li>
+            </ul>            
+            
+            <ul class="nav navbar-nav navbar-right">
+            <li>Name: {{name}} </li> <br/>
+            <li>Email: {{email}} </li>
+            </ul>
+
+          </div>
+        </div>
+      </nav>
+
+      <div class="jumbotron">
+        <h2>Summary of Data</h2>
+        <p class="text-muted">
+            A chart showing the popularity of ratings.
+        </p>
+			<div class="table-responsive">          
+				<table  id="myTable" class="table" >
+				  <tr>
+				    <td>Jill</td>
+				    <td>      
+				    	<svg width="150" height="25">
+				    		 
+		        			<rect x=10 y=10 width=105 height=20 style="fill:blue;" >
+		        				<title >70% of users</title>
+		        			</rect>	
+		        			
+		        			<text x=87 y=23 fill="white">70%</text>    
+
+		     			</svg>
+		     		</td>
+				  </tr>
+				  <tr>
+				    <td>Bill</td>
+				    <td>      
+				    	<svg width="150" height="25">
+		        			<rect x=10 y=10 width=30 height=20 style="fill:blue;"  >
+		        				<title >30% of users</title>
+		        			</rect>	
+		        			<text x=12 y=23 fill="white">30%</text>   
+		     			</svg>
+		     		</td>
+				  </tr>
+
+				</table> 
+			</div>
+      </div>
+
+    </div> <!-- /container -->
+
+
+
+   </body>
+</html>

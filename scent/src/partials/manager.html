@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no"/>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Questionaire / Survey</title>
+	  
+     
+     <style>
+		body {
+		  padding-top: 0px;
+		}
+		
+		.row-delete {
+            display: inline-block;
+            width: 10px;
+        }
+        .editable{ background:#EAEAEA}
+    </style> 
+    
+    <script>
+    var serviceBase = 'api/v1';
+    var counter = 0;
+
+
+	function addTerm( text  )
+	{
+	    var request = $.ajax({
+	        url: serviceBase + '/add/term',
+	        dataType : 'text',
+	        type: "POST",
+    		data: { "text" : encodeURIComponent(text) }
+
+	    });
+	    request.done(function( msg ) {
+	    	console.log( "new fragrance is added" );
+	    });
+	    request.fail(function( jqXHR, textStatus ) {
+	        console.log( "Request failed: " + textStatus );
+	    });
+	}  
+
+
+	function addRating( text, score  )
+	{
+	    var request = $.ajax({
+	        url: serviceBase + '/add/rating',
+	        dataType : 'json',
+	        type: "POST",
+    		data: { "text" : encodeURIComponent(text), "score" : encodeURIComponent(score) }
+
+	    });
+	    request.done(function( msg ) {
+	    	console.log( "new rating is added" );
+	    });
+	    request.fail(function( jqXHR, textStatus ) {
+	        console.log( "Request failed: " + textStatus );
+	    });
+	} 
+    
+	function acceptClickFromRadioButton()
+	{
+		$(".frClass").each(function(){
+	        var currentID = this.id;
+	        var currentName = this.name;
+	        
+	        var curIDLst = currentID.split("_"); 
+	        var score = curIDLst.slice(-1)[0] 
+
+	        
+	        $('#'+ currentID).change(function() {
+	            if($(this).is(":checked")) {
+	            	//alert ( currentID + " - " + currentName+ " - " + score );
+	            	addRating( currentName, score  )
+	            }
+	                  
+	        });
+		});
+	}
+    
+	function AddRow()
+	{
+		//use moutache.js here
+	    $('#myTable  tbody').prepend('<tr><td id="newItem">new item </td><td><input type="radio" name="frag3" class="frClass" id="frag3_0" /> </td><td><input type="radio" name="frag3" class="frClass" id="frag3_1" /> </td><td><input type="radio" name="frag3" class="frClass" id="frag3_2" checked/> </td><td><input type="radio" name="frag3" class="frClass" id="frag3_3" /> </td><td><input type="radio" name="frag3" class="frClass" id="frag3_4" /> </td></tr>')
+
+	    //disable button
+
+	    $("#btnAdd").attr("disabled","disabled");
+		
+	   	var $div=$('#newItem'), isEditable=$div.is('.editable');
+	    $div.prop('contenteditable',!isEditable).toggleClass('editable')
+	    
+		$div.blur(function (e) {
+
+			    $div.prop('contenteditable',false)
+			    $div.removeClass( "editable" );
+			    
+			    //modify the id of the radio buttons
+				var term = $div.text();
+				term = $.trim(term)
+			    var newID = term + "_0";
+				$('#frag3_0').attr('id', newID);
+				$('#frag3_0').attr('name', term );
+				newID = term + "_1";
+				$('#frag3_1').attr('id', newID);
+				$('#frag3_1').attr('name', term );
+				newID = term + "_2";
+				$('#frag3_2').attr('id', newID);
+				$('#frag3_2').attr('name', term );
+				newID = term + "_3";	
+				$('#frag3_3').attr('id', newID);
+				$('#frag3_3').attr('name', term );
+				newID = term + "_4";
+				$('#frag3_4').attr('id', newID);
+				$('#frag3_4').attr('name', term );
+			    
+			    //enable button
+			    $("#btnAdd").prop("disabled", false);
+			    
+			    
+			    addTerm( term );
+			    
+			    
+
+
+		});
+	    counter++; //make id unique
+	    
+	    var newID = "newItem" + "-" + counter;
+		$('#newItem').attr('id', newID);
+		
+		acceptClickFromRadioButton();
+
+
+	}
+	
+	acceptClickFromRadioButton();
+    </script>
+
+  </head>
+  <body>
+    <div class="container">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              	<li class="active"><a href="#/manager">Questionaire / Survey</a></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+              <li><a ng-click="logout();">Logout</a></li>
+            </ul>            
+            
+            <ul class="nav navbar-nav navbar-right">
+            <li>Name: {{name}} </li> <br/>
+            <li id="email">Email: {{email}} </li>
+            </ul>
+
+          </div>
+        </div>
+      </nav>
+
+			
+			<div class="table-responsive">         
+				  <table  id="myTable" class="table" >
+				    <thead>
+				      <tr>
+	
+				        <th>Fragrance</th>
+				        <th>Strongly Disagree</th>
+				        <th>Disagree</th>
+				        <th>Neutral</th>
+				        <th>Agree</th>
+				        <th>Strongly Agree</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+						<tr>
+							<td>frag1</td>
+							<td><input type="radio" name="frag1" class="frClass" id="frag1_0" /> </td>
+							<td><input type="radio" name="frag1" class="frClass" id="frag1_1" /> </td>
+							<td><input type="radio" name="frag1" class="frClass" id="frag1_2"/> </td>
+							<td><input type="radio" name="frag1" class="frClass" id="frag1_3" /> </td>
+							<td><input type="radio" name="frag1" class="frClass" id="frag1_4" /> </td>
+	
+						</tr>
+
+						
+				    </tbody>
+				  </table>
+				  </div>
+				  <input type="button" id="btnAdd" onclick="AddRow()" value="Add row"/>
+
+			  </div>
+      
+    </div> 
+
+<script >
+$(document).ready(function() { 
+	
+
+	
+	function getData(  )
+	{
+	    var request = $.ajax({
+	        url: serviceBase + '/data',
+	        dataType : 'text'
+	    });
+	    request.done(function( msg ) {
+	    	$('#myTable').empty(  );
+	    	$('#myTable').append( msg );
+	    	
+	    	$('#myTable').dataTable( {
+	    	    "dom": 'T<"clear">lfrtip',
+	    	    "pagingType": "full_numbers"
+	    	});
+	    	
+	    	acceptClickFromRadioButton();
+	    });
+	    request.fail(function( jqXHR, textStatus ) {
+	        console.log( "Request failed: " + textStatus );
+	    });
+	}   
+	
+	getData(  );
+
+
+});
+
+</script>
+
+   </body>
+</html>
+
+
+
